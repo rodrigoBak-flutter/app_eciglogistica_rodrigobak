@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "712680858641",
+    "project_id": "appeciglogicas",
+    "storage_bucket": "appeciglogicas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:712680858641:android:19f3d6cd5141e845f07db0",
+        "android_client_info": {
+          "package_name": "com.example.app_eciglogistica_rodrigobak"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "712680858641-shdg23u2d3stq5v5npn7pca9dl4fgg4u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.app_eciglogistica_rodrigobak",
+            "certificate_hash": "452032e5b12f9ff27041c0078da0c1278af1a9ac"
+          }
+        },
+        {
+          "client_id": "712680858641-n44d7d1rjhc4pe85t8a078296c0m4hpv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCTiQiCda_IpuzbO5OQeOm6_DhOvYdH3cI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "712680858641-n44d7d1rjhc4pe85t8a078296c0m4hpv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
