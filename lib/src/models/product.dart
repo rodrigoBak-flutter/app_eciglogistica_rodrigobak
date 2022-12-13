@@ -1,19 +1,32 @@
 // To parse this JSON data, do
-//
-//     final product = productFromMap(jsonString);
+
+/*
+  Modelo en el que me base
+  {
+    "Products": {
+        "categoty": "",
+        "description": "",
+        "picture": "",
+        "title": ""
+    }
+}
+
+ */
+
+
 
 import 'dart:convert';
 
 class Product {
   Product(
-      {required this.available,
+      {
       required this.title,
       required this.description,
       this.picture,
       required this.categoty,
       this.id});
 
-  bool available;
+ 
   String title;
   String description;
   String? picture;
@@ -25,7 +38,7 @@ class Product {
   String toJson() => json.encode(toMap());
 
   factory Product.fromMap(Map<String, dynamic> json) => Product(
-        available: json["available"],
+        
         title: json["title"],
         description: json["description"],
         picture: json["picture"],
@@ -33,7 +46,7 @@ class Product {
       );
 
   Map<String, dynamic> toMap() => {
-        "available": available,
+       
         "title": title,
         "description": description,
         "picture": picture,
@@ -41,7 +54,7 @@ class Product {
       };
 
   Product copy() => Product(
-        available: available,
+        
         title: title,
         description: description,
         picture: picture,

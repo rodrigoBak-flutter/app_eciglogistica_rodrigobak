@@ -12,12 +12,12 @@ class CardContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric( horizontal: 30 ),
+      padding:const EdgeInsets.symmetric( horizontal: 30 ),
       child: Container(
           width: double.infinity,
-          padding: EdgeInsets.all( 20 ),
+          padding:const EdgeInsets.all( 20 ),
           decoration: _createCardShape(),
-          child: this.child,
+          child: child,
       ),
     );
   }
@@ -25,11 +25,13 @@ class CardContainer extends StatelessWidget {
   BoxDecoration _createCardShape() => BoxDecoration(
     color: Colors.white,
     borderRadius: BorderRadius.circular(25),
+    // ignore: prefer_const_literals_to_create_immutables
     boxShadow: [
+      // ignore: prefer_const_constructors
       BoxShadow(
         color: Colors.black12,
         blurRadius: 15,
-        offset: Offset(0, 5),
+        offset:const Offset(0, 5),
       )
     ]
   );

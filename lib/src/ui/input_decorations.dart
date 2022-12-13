@@ -9,24 +9,24 @@ class InputDecorations {
     IconData? prefixIcon
   }) {
     return InputDecoration(
-        enabledBorder: UnderlineInputBorder(
+        enabledBorder:const UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.deepPurple
+            color: Colors.black
           ),
         ),
-        focusedBorder: UnderlineInputBorder(
+        focusedBorder:const UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.deepPurple,
+            color: Colors.black,
             width: 2
           )
         ),
         hintText: hintText,
         labelText: labelText,
-        labelStyle: TextStyle(
+        labelStyle: const TextStyle(
           color: Colors.grey
         ),
         prefixIcon: prefixIcon != null 
-          ? Icon( prefixIcon, color: Colors.deepPurple )
+          ? Icon( prefixIcon, color: Colors.black )
           : null
       );
   }  

@@ -37,7 +37,6 @@ class _ProductScreenBody extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
-        // keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           children: [
             Stack(
@@ -48,7 +47,7 @@ class _ProductScreenBody extends StatelessWidget {
                     left: 20,
                     child: IconButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: Icon(Icons.arrow_back_ios_new,
+                      icon: const Icon(Icons.arrow_back_ios_new,
                           size: 40, color: Colors.white),
                     )),
                 Positioned(
@@ -58,9 +57,7 @@ class _ProductScreenBody extends StatelessWidget {
                     onPressed: () async {
                       final picker = new ImagePicker();
                       final PickedFile? pickedFile = await picker.getImage(
-                          // source: ImageSource.gallery,
-                          source: ImageSource.camera,
-                          imageQuality: 100);
+                          source: ImageSource.camera, imageQuality: 100);
 
                       if (pickedFile == null) {
                         print('No seleccionó nada');
@@ -70,7 +67,7 @@ class _ProductScreenBody extends StatelessWidget {
                       productService
                           .updateSelectedProductImage(pickedFile.path);
                     },
-                    icon: Icon(Icons.camera_alt_outlined,
+                    icon: const Icon(Icons.camera_alt_outlined,
                         size: 40, color: Colors.white),
                   ),
                 ),
@@ -109,9 +106,9 @@ class _ProductForm extends StatelessWidget {
     final product = productForm.product;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding:const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20),
+        padding:const EdgeInsets.symmetric(horizontal: 20),
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Form(
@@ -155,13 +152,6 @@ class _ProductForm extends StatelessWidget {
                     labelText: 'Descripcion:'),
               ),
               SizedBox(height: 30),
-              SwitchListTile.adaptive(
-                  value: product.available,
-                  title: Text('Disponible'),
-                  activeColor: Colors.indigo,
-                  onChanged: productForm.updateAvailability),
-              SizedBox(height: 30),
-              
             ],
           ),
         ),

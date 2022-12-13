@@ -16,40 +16,73 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Productos'),
+        title: const Text('Test - Eciglogistica'),
+        centerTitle: true,
         actions: [
           IconButton(
               onPressed: () {
                 productsService.deleteAllProduct(
                   Product(
-                    available: false,
                     title: '',
                     description: '',
                     categoty: '',
                   ),
                 );
+                productsService.refreshProducts();
+                Navigator.pop(context);
               },
               icon: const Icon(Icons.delete))
         ],
       ),
-      body: ListView.builder(
-          physics: const BouncingScrollPhysics(),
-          itemCount: productsService.products.length,
-          itemBuilder: (BuildContext context, int index) => GestureDetector(
-                onTap: () {
-                  productsService.selectedProduct =
-                      productsService.products[index].copy();
-                  Navigator.pushNamed(context, 'product');
-                },
-                child: ProductCard(
-                  product: productsService.products[index],
-                ),
-              )),
+      body: RefreshIndicator(
+        backgroundColor: Colors.lightGreen,
+        strokeWidth: 3,
+        displacement: 10,
+        edgeOffset: 0,
+        onRefresh: productsService.refreshProducts,
+        child: ListView.builder(
+            physics: const BouncingScrollPhysics(),
+            itemCount: productsService.products.length,
+            itemBuilder: (BuildContext context, int index) => GestureDetector(
+                  onTap: () {
+                    showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ListTile(
+                                leading: Icon(Icons.delete),
+                                title: Text('Eliminar'),
+                                onTap: () {
+                                  productsService.deleteProduct(
+                                      productsService.products[index]);
+                                  productsService.refreshProducts();
+                                  Navigator.pop(context);
+                                },
+                              ),
+                              ListTile(
+                                leading: Icon(Icons.update_outlined),
+                                title: Text('Actualizar'),
+                                onTap: () {
+                                  productsService.selectedProduct =
+                                      productsService.products[index].copy();
+                                  Navigator.pushNamed(context, 'product');
+                                },
+                              ),
+                            ],
+                          );
+                        });
+                  },
+                  child: ProductCard(
+                    product: productsService.products[index],
+                  ),
+                )),
+      ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
           productsService.selectedProduct = Product(
-            available: false,
             title: '',
             description: '',
             categoty: '',
