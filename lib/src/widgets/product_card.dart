@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:flutter/material.dart';
 import 'package:app_eciglogistica_rodrigobak/src/models/models.dart';
 
@@ -26,14 +28,14 @@ class ProductCard extends StatelessWidget {
             _BackgroundImage( product.picture ),
 
             _ProductDetails(
-              title: product.name,
-              subTitle: product.id!,
+              title: product.title,
+              subTitle: product.description,
             ),
 
             Positioned(
               top: 0,
               right: 0,
-              child: _PriceTag( product.price )
+              child: _CategoryTag( product.categoty )
             ),
 
 
@@ -88,11 +90,11 @@ class _NotAvailable extends StatelessWidget {
   }
 }
 
-class _PriceTag extends StatelessWidget {
+class _CategoryTag extends StatelessWidget {
 
-  final double price;
+  final String title;
 
-  const _PriceTag( this.price );
+  const _CategoryTag( this.title );
 
   @override
   Widget build(BuildContext context) {
@@ -101,7 +103,7 @@ class _PriceTag extends StatelessWidget {
         fit: BoxFit.contain,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10 ),
-          child: Text('\$$price', style: TextStyle( color: Colors.white, fontSize: 20 ))
+          child: Text(title, style: TextStyle( color: Colors.white, fontSize: 20 ))
         ),
       ),
       width: 100,

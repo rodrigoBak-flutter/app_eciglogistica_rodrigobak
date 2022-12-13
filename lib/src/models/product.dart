@@ -4,47 +4,49 @@
 
 import 'dart:convert';
 
-import 'package:app_eciglogistica_rodrigobak/src/models/models.dart';
-
 class Product {
-    Product({
-        required this.available,
-        required this.name,
-        this.picture,
-        required this.price,
-        this.id
-    });
+  Product(
+      {required this.available,
+      required this.title,
+      required this.description,
+      this.picture,
+      required this.categoty,
+      this.id});
 
-    bool available;
-    String name;
-    String? picture;
-    double price;
-    String? id;
+  bool available;
+  String title;
+  String description;
+  String? picture;
+  String categoty;
+  String? id;
 
-    factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
+  factory Product.fromJson(String str) => Product.fromMap(json.decode(str));
 
-    String toJson() => json.encode(toMap());
+  String toJson() => json.encode(toMap());
 
-    factory Product.fromMap(Map<String, dynamic> json) => Product(
+  factory Product.fromMap(Map<String, dynamic> json) => Product(
         available: json["available"],
-        name: json["name"],
+        title: json["title"],
+        description: json["description"],
         picture: json["picture"],
-        price: json["price"].toDouble(),
-    );
+        categoty: json["categoty"],
+      );
 
-    Map<String, dynamic> toMap() => {
+  Map<String, dynamic> toMap() => {
         "available": available,
-        "name": name,
+        "title": title,
+        "description": description,
         "picture": picture,
-        "price": price,
-    };
+        "categoty": categoty,
+      };
 
-    Product copy() => Product(
-      available: this.available,
-      name: this.name,
-      picture: this.picture,
-      price: this.price,
-      id: this.id,
-    );
-
+  Product copy() => Product(
+        available: available,
+        title: title,
+        description: description,
+        picture: picture,
+        categoty: categoty,
+        id: id, 
+        
+      );
 }

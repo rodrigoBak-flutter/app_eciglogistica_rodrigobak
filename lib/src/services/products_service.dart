@@ -6,7 +6,10 @@ import 'package:app_eciglogistica_rodrigobak/src/models/models.dart';
 import 'package:http/http.dart' as http;
 
 class ProductsService extends ChangeNotifier {
-  final String _baseUrl = 'https://appeciglogicas-default-rtdb.firebaseio.com';
+  final String _baseUrl =
+      'https://appeciglogicas-default-rtdb.firebaseio.com/products.json';
+  final String _cloudinary =
+      'https://api.cloudinary.com/v1_1/drzbt6kvs/image/upload?upload_preset=nlvd53tx';
   final List<Product> products = [];
   late Product selectedProduct;
 
@@ -16,15 +19,15 @@ class ProductsService extends ChangeNotifier {
   bool isSaving = false;
 
   ProductsService() {
-    this.loadProducts();
+    loadProducts();
   }
 
   Future<List<Product>> loadProducts() async {
-    this.isLoading = true;
+    isLoading = true;
     notifyListeners();
 
     final url = Uri.parse(
-      'https://appeciglogicas-default-rtdb.firebaseio.com/products.json',
+      _baseUrl,
     );
     final resp = await http.get(url);
 
@@ -33,13 +36,13 @@ class ProductsService extends ChangeNotifier {
     productsMap.forEach((key, value) {
       final tempProduct = Product.fromMap(value);
       tempProduct.id = key;
-      this.products.add(tempProduct);
+      products.add(tempProduct);
     });
 
-    this.isLoading = false;
+    isLoading = false;
     notifyListeners();
 
-    return this.products;
+    return products;
   }
 
   Future saveOrCreateProduct(Product product) async {
@@ -48,10 +51,10 @@ class ProductsService extends ChangeNotifier {
 
     if (product.id == null) {
       // Es necesario crear
-      await this.createProduct(product);
+      await createProduct(product);
     } else {
       // Actualizar
-      await this.updateProduct(product);
+      await updateProduct(product);
     }
 
     isSaving = false;
@@ -60,47 +63,72 @@ class ProductsService extends ChangeNotifier {
 
   Future<String> updateProduct(Product product) async {
     final url = Uri.parse(
-      'https://appeciglogicas-default-rtdb.firebaseio.com/products/${product.id}.json' );
+        'https://appeciglogicas-default-rtdb.firebaseio.com/products/${product.id}.json');
     final resp = await http.put(url, body: product.toJson());
     final decodedData = resp.body;
+    print(decodedData);
 
-    //TODO: Actualizar el listado de productos
-    final index =
-        this.products.indexWhere((element) => element.id == product.id);
-    this.products[index] = product;
+    //Actualizar el listado de productos
+    final index = products.indexWhere((element) => element.id == product.id);
+    products[index] = product;
 
     return product.id!;
   }
 
+  Future<String> deleteProduct(Product product) async {
+    final url = Uri.parse(
+        'https://appeciglogicas-default-rtdb.firebaseio.com/products/${product.id}.json');
+    final resp = await http.delete(url, body: product.toJson());
+    final decodedData = resp.body;
+    print(decodedData);
+
+    //Eliminar un producto del listado
+    final index = products.indexWhere((element) => element.id == product.id);
+    products[index] = product;
+
+    return product.id!;
+  }
+
+  Future<String?> deleteAllProduct(Product product) async {
+    final url = Uri.parse(
+      _baseUrl,
+    );
+    final resp = await http.delete(url, body: product.toJson());
+    final decodedData = json.decode(resp.body);
+
+    products.clear();
+
+    return null;
+  }
+
   Future<String> createProduct(Product product) async {
     final url = Uri.parse(
-      'https://appeciglogicas-default-rtdb.firebaseio.com/products.json',
+      _baseUrl,
     );
     final resp = await http.post(url, body: product.toJson());
     final decodedData = json.decode(resp.body);
 
     product.id = decodedData['name'];
 
-    this.products.add(product);
+    products.add(product);
 
     return product.id!;
   }
 
   void updateSelectedProductImage(String path) {
-    this.selectedProduct.picture = path;
-    this.newPictureFile = File.fromUri(Uri(path: path));
+    selectedProduct.picture = path;
+    newPictureFile = File.fromUri(Uri(path: path));
 
     notifyListeners();
   }
 
   Future<String?> uploadImage() async {
-    if (this.newPictureFile == null) return null;
+    if (newPictureFile == null) return null;
 
-    this.isSaving = true;
+    isSaving = true;
     notifyListeners();
 
-    final url = Uri.parse(
-        'https://api.cloudinary.com/v1_1/drzbt6kvs/image/upload?upload_preset=nlvd53tx');
+    final url = Uri.parse(_cloudinary);
 
     final imageUploadRequest = http.MultipartRequest('POST', url);
 
@@ -118,7 +146,7 @@ class ProductsService extends ChangeNotifier {
       return null;
     }
 
-    this.newPictureFile = null;
+    newPictureFile = null;
 
     final decodedData = json.decode(resp.body);
     return decodedData['secure_url'];

@@ -3,7 +3,7 @@ import 'package:app_eciglogistica_rodrigobak/src/models/models.dart';
 
 class ProductFormProvider extends ChangeNotifier {
 
-  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  GlobalKey<FormState> formKey =  GlobalKey<FormState>();
 
   Product product;
 
@@ -18,8 +18,8 @@ class ProductFormProvider extends ChangeNotifier {
 
   bool isValidForm() {
 
-    print( product.name );
-    print( product.price );
+    print( product.title );
+    print( product.categoty );
     print( product.available );
 
     return formKey.currentState?.validate() ?? false;

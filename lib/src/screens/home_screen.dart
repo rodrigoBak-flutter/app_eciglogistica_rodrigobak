@@ -7,47 +7,56 @@ import 'package:app_eciglogistica_rodrigobak/src/screens/screens.dart';
 import 'package:app_eciglogistica_rodrigobak/src/services/services.dart';
 import 'package:app_eciglogistica_rodrigobak/src/widgets/widgets.dart';
 
-
 class HomeScreen extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
-
     final productsService = Provider.of<ProductsService>(context);
-    
-    if( productsService.isLoading ) return LoadingScreen();
 
+    if (productsService.isLoading) return LoadingScreen();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Productos'),
+        title: const Text('Productos'),
+        actions: [
+          IconButton(
+              onPressed: () {
+                productsService.deleteAllProduct(
+                  Product(
+                    available: false,
+                    title: '',
+                    description: '',
+                    categoty: '',
+                  ),
+                );
+              },
+              icon: const Icon(Icons.delete))
+        ],
       ),
       body: ListView.builder(
-        physics: const BouncingScrollPhysics(),
-        itemCount: productsService.products.length,
-        itemBuilder: ( BuildContext context, int index ) => GestureDetector(
-          onTap: () {
-
-            productsService.selectedProduct = productsService.products[index].copy();
-            Navigator.pushNamed(context, 'product');
-          },
-          child: ProductCard(
-            product: productsService.products[index],
-          ),
-        )
-      ),
+          physics: const BouncingScrollPhysics(),
+          itemCount: productsService.products.length,
+          itemBuilder: (BuildContext context, int index) => GestureDetector(
+                onTap: () {
+                  productsService.selectedProduct =
+                      productsService.products[index].copy();
+                  Navigator.pushNamed(context, 'product');
+                },
+                child: ProductCard(
+                  product: productsService.products[index],
+                ),
+              )),
       floatingActionButton: FloatingActionButton(
-        child: Icon( Icons.add ),
+        child: const Icon(Icons.add),
         onPressed: () {
-
-          productsService.selectedProduct = new Product(
-            available: false, 
-            name: '', 
-            price: 0
+          productsService.selectedProduct = Product(
+            available: false,
+            title: '',
+            description: '',
+            categoty: '',
           );
           Navigator.pushNamed(context, 'product');
         },
       ),
-   );
+    );
   }
 }
