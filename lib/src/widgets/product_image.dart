@@ -53,6 +53,7 @@ class ProductImage extends StatelessWidget {
         );
 
     if ( picture.startsWith('http') ) 
+        // ignore: curly_braces_in_flow_control_structures
         return FadeInImage(
           image: NetworkImage( this.url! ),
           placeholder: AssetImage('assets/jar-loading.gif'),

@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+
+//Manejador de estado de la aplicacion
 import 'package:provider/provider.dart';
 
+//Servicios
+import 'package:app_eciglogistica_rodrigobak/src/services/services.dart';
+
+//Modelo
 import 'package:app_eciglogistica_rodrigobak/src/models/models.dart';
+
+//Screens
 import 'package:app_eciglogistica_rodrigobak/src/screens/screens.dart';
 
-import 'package:app_eciglogistica_rodrigobak/src/services/services.dart';
+//Widgets
 import 'package:app_eciglogistica_rodrigobak/src/widgets/widgets.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -62,8 +70,8 @@ class HomeScreen extends StatelessWidget {
                                 },
                               ),
                               ListTile(
-                                leading: Icon(Icons.update_outlined),
-                                title: Text('Actualizar'),
+                                leading:const Icon(Icons.update_outlined),
+                                title: const Text('Actualizar'),
                                 onTap: () {
                                   productsService.selectedProduct =
                                       productsService.products[index].copy();

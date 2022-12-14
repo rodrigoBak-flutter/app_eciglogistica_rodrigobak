@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+//Paquete de terceros que permite renderizar imagenes
 import 'package:image_picker/image_picker.dart';
-
+//Manejador de estados de la aplicacion
 import 'package:provider/provider.dart';
+//Providers, controlador, validador(verifica que los TextForm esten correctamente completados)
 import 'package:app_eciglogistica_rodrigobak/src/providers/product_form_provider.dart';
-
+//Servicios 
 import 'package:app_eciglogistica_rodrigobak/src/services/services.dart';
-
-import 'package:app_eciglogistica_rodrigobak/src/ui/input_decorations.dart';
+//Widgets
 import 'package:app_eciglogistica_rodrigobak/src/widgets/widgets.dart';
+//UI de la apliacion
+import 'package:app_eciglogistica_rodrigobak/src/ui/input_decorations.dart';
+
 
 class ProductScreen extends StatelessWidget {
   @override

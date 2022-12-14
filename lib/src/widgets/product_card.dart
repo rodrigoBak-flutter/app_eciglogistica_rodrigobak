@@ -125,6 +125,8 @@ class _BackgroundImage extends StatelessWidget {
       child: Container(
         width: double.infinity,
         height: 400,
+        //Ternario, si no recibo una imagen proveniente de mi backend, mostrare una imagen precargada en el cache,
+        //Siempre mostrare una imagen hasta que llegue la respuesta positiva o negativa del backend
         child: url == null
             ? Image(image: AssetImage('assets/no-image.png'), fit: BoxFit.cover)
             : FadeInImage(

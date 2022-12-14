@@ -14,7 +14,16 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ProductsService())],
+      /*
+      Al elevar el manejador de estado(Provider), hasta el punto mas alto de la rama de nuestra
+      apliacion, conseguimos que al momento de compilar ya se este ejecutando, por lo que podremos
+      darle utilidad en cualquier lugar de nuestra aplicacion de una manera muy sencilla.
+    */
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ProductsService(),
+        )
+      ],
       child: MyApp(),
     );
   }
@@ -29,7 +38,7 @@ class MyApp extends StatelessWidget {
       title: 'Test - Eciglogistica',
       //Hacia donde se dirige mi apliacion al iniciarse
       initialRoute: 'home',
-       //Todas las rutas que pueda utilizar la aplicacion agrupadas en un mapa
+      //Todas las rutas que pueda utilizar la aplicacion agrupadas en un mapa
       routes: appRoutes,
       //Tema que va a manejar por defecto mi aplicacion
       theme: ThemeData.light().copyWith(
